@@ -1,0 +1,155 @@
+/* ========================================
+   Responsive — Mobile-first Breakpoints
+   ======================================== */
+
+/* ========== TABLET (640px+) ========== */
+@media (min-width: 640px) {
+  :root {
+    --container-padding: var(--space-md);
+  }
+
+  /* Stepper: 2x2 grid */
+  .stepper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Cards: 2 columns */
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Testimonials: 2 visible */
+  .testimonials__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .testimonials__grid .testimonial:last-child {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    justify-self: center;
+  }
+
+  /* Footer: 2 columns */
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========== DESKTOP (1024px+) ========== */
+@media (min-width: 1024px) {
+  :root {
+    --container-padding: var(--space-lg);
+    --section-padding: var(--space-4xl);
+  }
+
+  /* Navigation: Full desktop menu */
+  .nav__menu {
+    display: block;
+  }
+
+  .nav__cta {
+    display: inline-flex;
+  }
+
+  .nav__hamburger {
+    display: none;
+  }
+
+  /* Hero: 2-column split */
+  .hero__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Stepper: 4 columns horizontal */
+  .stepper {
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+  }
+
+  /* Connecting line between steps */
+  .stepper::before {
+    content: '';
+    position: absolute;
+    top: 4.5rem;
+    left: calc(12.5% + var(--space-lg));
+    right: calc(12.5% + var(--space-lg));
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      var(--color-primary-light),
+      var(--color-primary),
+      var(--color-primary-light)
+    );
+    z-index: 0;
+  }
+
+  .stepper__step {
+    text-align: center;
+    z-index: 1;
+  }
+
+  /* Cards: 3 columns */
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Testimonials: 3 columns */
+  .testimonials__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .testimonials__grid .testimonial:last-child {
+    grid-column: auto;
+    max-width: none;
+    justify-self: auto;
+  }
+
+  /* Footer: 3 columns */
+  .footer__grid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  /* Mobile nav overlay: never visible on desktop */
+  .nav__overlay {
+    display: none;
+  }
+}
+
+/* ========== LARGE DESKTOP (1280px+) ========== */
+@media (min-width: 1280px) {
+  .hero__content h1 {
+    max-width: 14ch;
+  }
+}
+
+/* ========== MOBILE NAV MENU (below 1024px) ========== */
+@media (max-width: 1023px) {
+  .nav__menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    height: 100vh;
+    background-color: var(--color-bg-white);
+    padding: var(--space-3xl) var(--space-lg) var(--space-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    z-index: var(--z-overlay);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .nav__menu--open {
+    display: block;
+    transform: translateX(0);
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .nav__link {
+    font-size: var(--fs-body-lg);
+  }
+}

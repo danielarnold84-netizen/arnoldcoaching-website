@@ -1,0 +1,33 @@
+/* ========================================
+   Layout — Container & Grid
+   ======================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* Section spacing */
+section {
+  padding-block: var(--section-padding);
+}
+
+.section--warm {
+  background-color: var(--color-bg-warm);
+}
+
+/* Section header pattern */
+section > .container > .label {
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+section > .container > h2 {
+  margin-bottom: var(--space-2xl);
+}
