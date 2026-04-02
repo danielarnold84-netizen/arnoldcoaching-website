@@ -163,24 +163,6 @@
   align-items: center;
 }
 
-.hero__centered {
-  text-align: center;
-  max-width: var(--container-narrow);
-  margin-inline: auto;
-}
-
-.hero__centered .hero__subtitle {
-  margin-inline: auto;
-}
-
-.hero__centered .hero__actions {
-  justify-content: center;
-}
-
-.hero__centered .hero__trust {
-  justify-content: center;
-}
-
 .hero__content .label {
   margin-bottom: var(--space-sm);
 }
@@ -218,16 +200,14 @@
   background-color: var(--color-text-light);
 }
 
-.hero__image-placeholder {
+.hero__photo {
   max-width: 400px;
-  margin-inline: auto;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.hero__image-placeholder svg {
   width: 100%;
   height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  box-shadow: var(--shadow-lg);
 }
 
 .hero__scroll-hint {
