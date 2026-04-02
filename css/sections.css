@@ -163,6 +163,24 @@
   align-items: center;
 }
 
+.hero__centered {
+  text-align: center;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+}
+
+.hero__centered .hero__subtitle {
+  margin-inline: auto;
+}
+
+.hero__centered .hero__actions {
+  justify-content: center;
+}
+
+.hero__centered .hero__trust {
+  justify-content: center;
+}
+
 .hero__content .label {
   margin-bottom: var(--space-sm);
 }
