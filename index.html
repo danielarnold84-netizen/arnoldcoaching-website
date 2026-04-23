@@ -20,15 +20,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/sections.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <!-- Critical font preloads -->
+  <link rel="preload" href="assets/fonts/LeagueSpartan-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Poppins-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Stylesheet (merged) -->
+  <link rel="stylesheet" href="css/style.css">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -60,7 +57,10 @@
   <header class="nav" id="nav">
     <div class="container nav__inner">
       <a href="#" class="nav__logo">
-        <img src="assets/images/logo-arnold-coaching.jpg" alt="Arnold Coaching" width="40" height="40">
+        <picture>
+          <source srcset="assets/images/logo-arnold-coaching.webp" type="image/webp">
+          <img src="assets/images/logo-arnold-coaching.jpg" alt="Arnold Coaching" width="40" height="40">
+        </picture>
         <span>Arnold Coaching</span>
       </a>
       <nav class="nav__menu" id="navMenu" aria-label="Hauptnavigation">
@@ -72,7 +72,7 @@
           <li><a href="#kontakt" class="nav__link">Kontakt</a></li>
         </ul>
       </nav>
-      <a href="https://app.reclaim.ai/m/daniel-arnold/daniel-20-minutes" class="btn btn--primary btn--sm nav__cta" target="_blank" rel="noopener">Erstgespräch buchen</a>
+      <a href="https://app.reclaim.ai/m/daniel-arnold/kennenlern-gespraech" class="btn btn--primary btn--sm nav__cta" target="_blank" rel="noopener">Erstgespräch buchen</a>
       <button class="nav__hamburger" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span>
         <span></span>
@@ -94,7 +94,7 @@
           <h1>Gespräche, die sitzen.<br>Auf Englisch und auf Deutsch.</h1>
           <p class="hero__subtitle">Ich treffe mich regelmäßig mit Führungskräften und Teams — und wir reden miteinander. Auf Englisch oder Deutsch. Über das, was Sie gerade beschäftigt. So wird Sprache lebendig und Fortschritt spürbar.</p>
           <div class="hero__actions">
-            <a href="https://app.reclaim.ai/m/daniel-arnold/daniel-20-minutes" class="btn btn--primary" target="_blank" rel="noopener">Erstgespräch buchen</a>
+            <a href="https://app.reclaim.ai/m/daniel-arnold/kennenlern-gespraech" class="btn btn--primary" target="_blank" rel="noopener">Erstgespräch buchen</a>
             <a href="#ueber-mich" class="btn btn--ghost">Mehr erfahren</a>
           </div>
           <div class="hero__trust">
@@ -106,7 +106,10 @@
           </div>
         </div>
         <div class="hero__image" data-reveal data-reveal-delay="200">
-          <img src="assets/images/daniel-arnold.jpg" alt="Daniel Arnold — Sprach- und Kommunikationstrainer" class="hero__photo" width="450" height="797" loading="eager">
+          <picture>
+            <source srcset="assets/images/daniel-arnold.webp" type="image/webp">
+            <img src="assets/images/daniel-arnold.jpg" alt="Daniel Arnold — Sprach- und Kommunikationstrainer" class="hero__photo" width="450" height="797" loading="eager" fetchpriority="high">
+          </picture>
         </div>
       </div>
       <div class="hero__scroll-hint" aria-hidden="true">
@@ -256,7 +259,7 @@
       <div class="container cta-section__inner">
         <h2 class="cta-section__title" data-reveal>Bereit, den ersten Schritt zu machen?</h2>
         <p class="cta-section__text" data-reveal>Buchen Sie Ihr kostenloses Erstgespräch — 30 Minuten, in denen wir besprechen, wo Sie stehen und wie ich helfen kann.</p>
-        <a href="https://app.reclaim.ai/m/daniel-arnold/daniel-20-minutes" class="btn btn--white btn--lg" target="_blank" rel="noopener" data-reveal>Jetzt Erstgespräch buchen</a>
+        <a href="https://app.reclaim.ai/m/daniel-arnold/kennenlern-gespraech" class="btn btn--white btn--lg" target="_blank" rel="noopener" data-reveal>Jetzt Erstgespräch buchen</a>
       </div>
     </section>
 
@@ -267,7 +270,10 @@
     <div class="container footer__grid">
       <div class="footer__brand">
         <a href="#" class="footer__logo">
-          <img src="assets/images/logo-arnold-coaching.jpg" alt="Arnold Coaching" width="36" height="36">
+          <picture>
+            <source srcset="assets/images/logo-arnold-coaching.webp" type="image/webp">
+            <img src="assets/images/logo-arnold-coaching.jpg" alt="Arnold Coaching" width="36" height="36" loading="lazy">
+          </picture>
           <span>Arnold Coaching</span>
         </a>
         <p class="footer__tagline">Wo Sprache auf Strategie trifft.</p>
