@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Interaktion-Varianten — Skizze 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F4EFE3;
+    --paper: #FAF6EC;
+    --ink: #1E1A14;
+    --ink-soft: #4A4339;
+    --ink-mute: #847C6E;
+    --rule: #D9D0B9;
+    --rule-soft: #E8E0CD;
+    --bakery: #B85735;
+    --bakery-soft: #E8C9B8;
+    --warn: #B8893B;
+    --postit: #FCEAA0;
+    --accent: var(--bakery);
+    --accent-soft: var(--bakery-soft);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(184, 87, 53, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(42, 74, 62, 0.04) 0%, transparent 40%);
+  }
+
+  .stage {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  .preamble {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-mute);
+    margin-bottom: 24px;
+  }
+  .preamble::before { content:''; width:24px; height:1px; background:var(--ink-mute); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400; font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+
+  .lede {
+    font-family: 'Fraunces', serif; font-weight: 300;
+    font-size: 17px; line-height: 1.55; color: var(--ink-soft);
+    max-width: 580px; margin-bottom: 36px;
+  }
+
+  /* TAB-SELECTOR */
+  .variants {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 6px;
+    margin-bottom: 8px;
+  }
+  .variants button {
+    appearance: none; background: none; border: none;
+    cursor: pointer; padding: 12px 18px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink-soft); border-radius: 6px;
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.25s ease;
+  }
+  .variants button .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; opacity: 0.6;
+  }
+  .variants button:hover { color: var(--ink); background: var(--rule-soft); }
+  .variants button.active {
+    background: var(--accent); color: white;
+  }
+  .variants button.active .num { opacity: 0.8; }
+
+  .variant-desc {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.04em;
+    color: var(--ink-mute); margin: 12px 0 32px;
+    line-height: 1.5;
+  }
+
+  /* DASHBOARD */
+  .dashboard {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(30,26,20,0.04), 0 8px 32px -8px rgba(30,26,20,0.08);
+    position: relative;
+  }
+  .dashboard::before {
+    content: ''; position: absolute; top:0; left:0; right:0; height:3px;
+    background: var(--accent);
+  }
+
+  .dash-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .dash-title { font-family:'Fraunces',serif; font-size:20px; font-weight:500; }
+  .dash-meta {
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.08em; color:var(--ink-mute); text-transform:uppercase;
+  }
+
+  .quarter {
+    padding: 16px 28px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .quarter-label {
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--accent);
+    font-weight:500; flex-shrink:0;
+  }
+  .quarter-text { font-family:'Fraunces',serif; font-size:16px; font-weight:500; }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--rule-soft);
+  }
+  .kpi {
+    background: var(--paper); padding: 20px 22px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease;
+  }
+  .kpi:hover { background: #fdfaf1; }
+  .kpi-label {
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-mute); margin-bottom:8px;
+  }
+  .kpi-value {
+    font-family:'Fraunces',serif; font-size:26px; font-weight:500;
+    line-height:1; margin-bottom:6px;
+  }
+  .kpi-meta { font-size:12px; color:var(--ink-soft); }
+  .kpi-meta .up { color:#4A7A4A; }
+  .kpi-meta .down { color:#B85735; }
+  .kpi-meta .warn { color:var(--warn); font-weight:500; }
+
+  /* WEEK LIST */
+  .week-list { padding: 24px 28px 28px; }
+  .week-label {
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-mute); margin-bottom:12px;
+  }
+  .week-item {
+    display:flex; gap:14px; padding:10px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    cursor: pointer; position: relative;
+    font-size: 14px; color: var(--ink-soft);
+    transition: color 0.2s ease;
+  }
+  .week-item:last-child { border-bottom: none; }
+  .week-item:hover { color: var(--ink); }
+  .week-item .marker {
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--ink-mute); flex-shrink:0; padding-top:2px;
+  }
+
+  /* === KONZEPT 1: SPARKLINE (Inline-Expand) === */
+  body[data-pattern="sparkline"] .kpi::after {
+    content: '↘';
+    position: absolute; right: 18px; top: 18px;
+    font-size: 12px; color: var(--ink-mute); opacity: 0.5;
+    transition: transform 0.3s ease, opacity 0.2s;
+  }
+  body[data-pattern="sparkline"] .kpi:hover::after { opacity: 1; }
+  body[data-pattern="sparkline"] .kpi.expanded::after { transform: rotate(180deg); opacity: 1; }
+  body[data-pattern="sparkline"] .kpi-detail {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.3s ease;
+  }
+  body[data-pattern="sparkline"] .kpi.expanded .kpi-detail {
+    max-height: 120px; margin-top: 14px;
+  }
+  body[data-pattern="sparkline"] .kpi-detail svg {
+    width: 100%; height: 36px; display: block;
+  }
+  body[data-pattern="sparkline"] .kpi-detail-hint {
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    color:var(--ink-mute); letter-spacing:0.04em; margin-top:6px;
+  }
+  body[data-pattern="sparkline"] .week-item-actions {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease;
+    width: 100%;
+  }
+  body[data-pattern="sparkline"] .week-item.expanded .week-item-actions {
+    max-height: 50px; margin-top: 10px;
+  }
+  body[data-pattern="sparkline"] .week-item {
+    flex-wrap: wrap;
+  }
+  body[data-pattern="sparkline"] .action-btn {
+    appearance: none; background: var(--rule-soft); border: none;
+    border-radius: 4px; padding: 6px 12px; cursor: pointer;
+    font-family:'IBM Plex Sans',sans-serif; font-size:12px;
+    color: var(--ink-soft); margin-right: 6px;
+    transition: background 0.2s;
+  }
+  body[data-pattern="sparkline"] .action-btn:hover { background: var(--accent-soft); color: var(--ink); }
+
+  /* === KONZEPT 2: POSTIT === */
+  body[data-pattern="postit"] .postit {
+    position: absolute;
+    background: var(--postit);
+    padding: 14px 16px; border-radius: 2px;
+    font-family: 'Caveat', cursive; font-size: 16px;
+    color: #3a2e16; line-height: 1.3;
+    box-shadow: 0 4px 12px -2px rgba(30,26,20,0.18), 0 1px 2px rgba(30,26,20,0.1);
+    transform: rotate(-2deg) scale(0.9);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 200px;
+    z-index: 10;
+  }
+  body[data-pattern="postit"] .kpi { overflow: visible; }
+  body[data-pattern="postit"] .kpi.active .postit,
+  body[data-pattern="postit"] .week-item.active .postit {
+    opacity: 1; transform: rotate(-2deg) scale(1);
+    pointer-events: auto;
+  }
+  body[data-pattern="postit"] .kpi .postit { right: -180px; top: 12px; }
+  body[data-pattern="postit"] .kpi:nth-child(2n) .postit { right: auto; left: -180px; transform: rotate(2deg) scale(0.9); }
+  body[data-pattern="postit"] .kpi:nth-child(2n).active .postit { transform: rotate(2deg) scale(1); }
+
+  body[data-pattern="postit"] .week-item .postit {
+    right: 0; top: 100%; margin-top: 8px;
+    width: 240px;
+  }
+  body[data-pattern="postit"] .postit-link {
+    display: inline-block; margin-top: 6px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color: var(--bakery); text-decoration: none;
+  }
+  body[data-pattern="postit"] .postit-link:hover { text-decoration: underline; }
+
+  /* Mobile postit fix */
+  @media (max-width: 720px) {
+    body[data-pattern="postit"] .kpi .postit,
+    body[data-pattern="postit"] .kpi:nth-child(2n) .postit {
+      position: static; opacity: 0; transform: rotate(-1.5deg) scale(0.9);
+      width: 100%; margin-top: 12px; right: auto; left: auto; height: 0; padding: 0;
+      transition: opacity 0.3s, height 0.3s, padding 0.3s;
+      overflow: hidden;
+    }
+    body[data-pattern="postit"] .kpi.active .postit {
+      opacity: 1; height: auto; padding: 14px 16px;
+      transform: rotate(-1.5deg) scale(1);
+    }
+  }
+
+  /* === KONZEPT 3: MAGIC-PEN === */
+  body[data-pattern="magicpen"] .kpi {
+    cursor: crosshair;
+  }
+  body[data-pattern="magicpen"] .kpi-value::after {
+    content: ' ✦';
+    color: var(--accent); font-size: 0.55em;
+    opacity: 0; vertical-align: super;
+    transition: opacity 0.3s ease;
+    animation: magic-pulse 2s ease-in-out infinite;
+  }
+  @keyframes magic-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+  body[data-pattern="magicpen"] .kpi:hover .kpi-value::after {
+    opacity: 0.9;
+  }
+  body[data-pattern="magicpen"] .magic-bubble {
+    position: absolute;
+    bottom: 100%; left: 18px; margin-bottom: 8px;
+    background: var(--ink); color: var(--paper);
+    padding: 12px 14px; border-radius: 8px;
+    font-size: 12px; line-height: 1.4;
+    width: 200px; opacity: 0; pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 10;
+  }
+  body[data-pattern="magicpen"] .magic-bubble::after {
+    content: ''; position: absolute; bottom: -6px; left: 16px;
+    border: 6px solid transparent;
+    border-top-color: var(--ink); border-bottom: none;
+  }
+  body[data-pattern="magicpen"] .kpi.active .magic-bubble,
+  body[data-pattern="magicpen"] .week-item.active .magic-bubble {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  body[data-pattern="magicpen"] .magic-bars {
+    display: flex; align-items: flex-end; gap: 3px; height: 24px;
+    margin-top: 8px;
+  }
+  body[data-pattern="magicpen"] .magic-bar {
+    flex: 1; background: var(--accent);
+    border-radius: 1px;
+    opacity: 0.7;
+  }
+  body[data-pattern="magicpen"] .magic-hint {
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.04em; opacity: 0.7;
+    text-transform: uppercase; margin-top: 6px; display: block;
+  }
+  body[data-pattern="magicpen"] .week-item .magic-bubble {
+    left: 30px; bottom: auto; top: 100%; margin-top: 6px;
+    margin-bottom: 0; transform: translateY(-6px);
+  }
+  body[data-pattern="magicpen"] .week-item .magic-bubble::after {
+    top: -6px; bottom: auto;
+    border-bottom-color: var(--ink); border-top: none;
+  }
+  body[data-pattern="magicpen"] .week-item.active .magic-bubble {
+    transform: translateY(0);
+  }
+
+  /* Hide all detail-blocks unless their pattern is active */
+  .kpi-detail, .postit, .magic-bubble, .week-item-actions { display: none; }
+  body[data-pattern="sparkline"] .kpi-detail,
+  body[data-pattern="sparkline"] .week-item-actions { display: block; }
+  body[data-pattern="postit"] .postit { display: block; }
+  body[data-pattern="magicpen"] .magic-bubble { display: block; }
+
+  .signature {
+    margin-top: 36px;
+    text-align: center;
+    font-family:'Fraunces',serif; font-style:italic;
+    color:var(--ink-soft); font-size:14px;
+  }
+
+  @media (max-width: 720px) {
+    .stage { padding: 32px 20px 48px; }
+    .dash-header, .quarter, .week-list { padding-left: 20px; padding-right: 20px; }
+    .kpi { padding: 18px 18px; }
+  }
+</style>
+</head>
+<body data-pattern="sparkline">
+
+<div class="stage">
+
+  <div class="preamble">Skizze 2026 · Interaktion-Varianten</div>
+
+  <h1>Drei Spielarten —<br><em>welche fühlt sich richtig an?</em></h1>
+
+  <p class="lede">
+    Drei Wege, KPIs und Wochen-Items klickbar zu machen. Gleicher Inhalt, drei Charaktere.
+    Klick auf einen KPI oder ein Wochen-Item — schau, was passiert.
+  </p>
+
+  <div class="variants">
+    <button class="active" data-pattern="sparkline">
+      <span class="num">01</span> Sparkline
+    </button>
+    <button data-pattern="postit">
+      <span class="num">02</span> Postit
+    </button>
+    <button data-pattern="magicpen">
+      <span class="num">03</span> Magic-Pen
+    </button>
+  </div>
+
+  <div class="variant-desc" id="desc">
+    Klick öffnet eine kleine SVG-Sparkline unter dem Wert. Nüchtern, datenfreundlich.
+  </div>
+
+  <div class="dashboard">
+    <div class="dash-header">
+      <div class="dash-title">Korb Bakery — your week at a glance</div>
+      <div class="dash-meta">Week 17 · Mon morning</div>
+    </div>
+
+    <div class="quarter">
+      <span class="quarter-label">This quarter</span>
+      <span class="quarter-text">Lift weekend revenue at Filiale 2 by 15%</span>
+    </div>
+
+    <div class="kpi-grid">
+
+      <div class="kpi" data-kpi="sales">
+        <div class="kpi-label">Sales · last 7 days</div>
+        <div class="kpi-value">€18,420</div>
+        <div class="kpi-meta"><span class="up">↑ 4%</span> vs week before</div>
+        <div class="kpi-detail">
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+              points="0,22 14,18 28,20 42,15 56,12 70,16 84,10 100,8" />
+            <circle cx="100" cy="8" r="2.5" fill="#B85735"/>
+          </svg>
+          <div class="kpi-detail-hint">8-week trend · live data from POS would land here</div>
+        </div>
+        <div class="postit">
+          klick → mein POS in einer Zeile.<br>
+          Gestern €2,480, beste Donnerstag<br>seit drei Wochen ✨
+          <a href="#" class="postit-link" onclick="return false">→ open in POS (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Sales last 8 weeks
+          <div class="magic-bars">
+            <div class="magic-bar" style="height:50%"></div>
+            <div class="magic-bar" style="height:62%"></div>
+            <div class="magic-bar" style="height:55%"></div>
+            <div class="magic-bar" style="height:70%"></div>
+            <div class="magic-bar" style="height:65%"></div>
+            <div class="magic-bar" style="height:78%"></div>
+            <div class="magic-bar" style="height:85%"></div>
+            <div class="magic-bar" style="height:92%"></div>
+          </div>
+          <span class="magic-hint">tap → POS detail</span>
+        </div>
+      </div>
+
+      <div class="kpi" data-kpi="topseller">
+        <div class="kpi-label">Top seller</div>
+        <div class="kpi-value">Sourdough</div>
+        <div class="kpi-meta">412 loaves · Brötchen second</div>
+        <div class="kpi-detail">
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+              points="0,18 14,16 28,14 42,12 56,10 70,11 84,9 100,7" />
+            <circle cx="100" cy="7" r="2.5" fill="#B85735"/>
+          </svg>
+          <div class="kpi-detail-hint">Sourdough volume per week · Sep–Apr</div>
+        </div>
+        <div class="postit">
+          Sourdough = Held seit Q4.<br>
+          Brötchen abgehängt, aber<br>steigt am Wochenende ↗
+          <a href="#" class="postit-link" onclick="return false">→ product detail (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Sourdough vs Brötchen
+          <div class="magic-bars">
+            <div class="magic-bar" style="height:60%"></div>
+            <div class="magic-bar" style="height:68%"></div>
+            <div class="magic-bar" style="height:72%"></div>
+            <div class="magic-bar" style="height:80%"></div>
+            <div class="magic-bar" style="height:78%"></div>
+            <div class="magic-bar" style="height:85%"></div>
+            <div class="magic-bar" style="height:88%"></div>
+            <div class="magic-bar" style="height:95%"></div>
+          </div>
+          <span class="magic-hint">tap → product detail</span>
+        </div>
+      </div>
+
+      <div class="kpi" data-kpi="staff">
+        <div class="kpi-label">Staff cost ratio</div>
+        <div class="kpi-value">31%</div>
+        <div class="kpi-meta"><span class="warn">target &lt; 30%</span> · creeping up</div>
+        <div class="kpi-detail">
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#B8893B" stroke-width="1.5"
+              points="0,20 14,19 28,17 42,16 56,14 70,12 84,11 100,10" />
+            <circle cx="100" cy="10" r="2.5" fill="#B8893B"/>
+          </svg>
+          <div class="kpi-detail-hint">Crept up since week 12. 30% is your line.</div>
+        </div>
+        <div class="postit">
+          schleicht hoch seit KW 12.<br>
+          Annas Überstunden? Rolle<br>klären beim Mo-Briefing.
+          <a href="#" class="postit-link" onclick="return false">→ HR breakdown (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Staff cost · last 8 weeks
+          <div class="magic-bars">
+            <div class="magic-bar" style="height:45%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:48%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:55%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:60%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:68%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:74%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:82%; background:#B8893B"></div>
+            <div class="magic-bar" style="height:88%; background:#B8893B"></div>
+          </div>
+          <span class="magic-hint">tap → HR detail</span>
+        </div>
+      </div>
+
+      <div class="kpi" data-kpi="waste">
+        <div class="kpi-label">Waste rate</div>
+        <div class="kpi-value">6%</div>
+        <div class="kpi-meta">Filiale 2: <span class="down">9%</span> · others fine</div>
+        <div class="kpi-detail">
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+              points="0,22 14,21 28,20 42,18 56,15 70,13 84,11 100,9" />
+            <circle cx="100" cy="9" r="2.5" fill="#B85735"/>
+          </svg>
+          <div class="kpi-detail-hint">Filiale 2 alone — others stable.</div>
+        </div>
+        <div class="postit">
+          Filiale 2 zieht das Bild.<br>
+          Croissants, drei Wochen in<br>Folge mehr Rückläufer.
+          <a href="#" class="postit-link" onclick="return false">→ Filiale 2 detail (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Waste · Filiale 2 isolated
+          <div class="magic-bars">
+            <div class="magic-bar" style="height:40%"></div>
+            <div class="magic-bar" style="height:45%"></div>
+            <div class="magic-bar" style="height:55%"></div>
+            <div class="magic-bar" style="height:62%"></div>
+            <div class="magic-bar" style="height:70%"></div>
+            <div class="magic-bar" style="height:78%"></div>
+            <div class="magic-bar" style="height:85%"></div>
+            <div class="magic-bar" style="height:92%"></div>
+          </div>
+          <span class="magic-hint">tap → Filiale 2 detail</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="week-list">
+      <div class="week-label">What's on your plate this week</div>
+
+      <div class="week-item" data-week="filiale2">
+        <span class="marker">01</span>
+        <span>Talk to Filiale 2 about waste — bring last 4 weeks of numbers</span>
+        <div class="week-item-actions">
+          <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+          <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+          <button class="action-btn" onclick="event.stopPropagation()">↗ Open in Asana</button>
+        </div>
+        <div class="postit">
+          Bringt Anna mit?<br>
+          Sie kennt den Waste-Bericht<br>aus erster Hand.
+          <a href="#" class="postit-link" onclick="return false">→ open in Asana (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Action options<br>
+          <span class="magic-hint">tap → Asana / mark done / snooze</span>
+        </div>
+      </div>
+
+      <div class="week-item" data-week="easter">
+        <span class="marker">02</span>
+        <span>Decide on extended Saturday hours for Easter week</span>
+        <div class="week-item-actions">
+          <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+          <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+          <button class="action-btn" onclick="event.stopPropagation()">↗ Open in Asana</button>
+        </div>
+        <div class="postit">
+          Letztes Jahr +18%<br>
+          am Karsamstag — könnte<br>sich lohnen.
+          <a href="#" class="postit-link" onclick="return false">→ historical data (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Last year's Easter Saturday: +18%
+          <span class="magic-hint">tap → see comparison</span>
+        </div>
+      </div>
+
+      <div class="week-item" data-week="vicent">
+        <span class="marker">03</span>
+        <span>Vicent: contract decision (you said end of March)</span>
+        <div class="week-item-actions">
+          <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+          <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+          <button class="action-btn" onclick="event.stopPropagation()">↗ Open thread</button>
+        </div>
+        <div class="postit">
+          Termin Hauptmarkt<br>
+          22.04. — vor Easter<br>klären?
+          <a href="#" class="postit-link" onclick="return false">→ chat thread (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Open since 4 weeks
+          <span class="magic-hint">tap → contract decision tree</span>
+        </div>
+      </div>
+
+      <div class="week-item" data-week="vanilla">
+        <span class="marker">04</span>
+        <span>Reorder vanilla — supplier said 5-day lead time now</span>
+        <div class="week-item-actions">
+          <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+          <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+          <button class="action-btn" onclick="event.stopPropagation()">↗ Open in HS Soft</button>
+        </div>
+        <div class="postit">
+          Bestand 12kg.<br>
+          Reicht für 9 Tage —<br>diese Woche bestellen.
+          <a href="#" class="postit-link" onclick="return false">→ HS Soft (mock)</a>
+        </div>
+        <div class="magic-bubble">
+          Stock: 12kg · 9 days runway
+          <span class="magic-hint">tap → HS Soft order screen</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="signature">Try clicking different KPIs and items. — Daniel</div>
+
+</div>
+
+<script>
+  const body = document.body;
+  const desc = document.getElementById('desc');
+  const tabs = document.querySelectorAll('.variants button');
+  const descs = {
+    sparkline: 'Klick öffnet eine kleine SVG-Sparkline unter dem Wert. Nüchtern, datenfreundlich.',
+    postit:    'Klick lässt ein schräges, gelbes Postit erscheinen — handgeschrieben, mit Mock-Link am Fuß.',
+    magicpen:  'Hover lässt ein ✦ pulsen, Klick öffnet eine schwarze Bubble mit Mini-Bars und Hint.'
+  };
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.dataset.pattern;
+      tabs.forEach(b => b.classList.toggle('active', b === btn));
+      body.dataset.pattern = p;
+      desc.textContent = descs[p];
+      // close all open detail items on switch
+      document.querySelectorAll('.kpi.expanded, .week-item.expanded, .kpi.active, .week-item.active')
+        .forEach(el => el.classList.remove('expanded', 'active'));
+    });
+  });
+
+  // KPI + Week-Item click handlers
+  function setupClickToggle(selector, classNames) {
+    document.querySelectorAll(selector).forEach(el => {
+      el.addEventListener('click', (e) => {
+        // for sparkline pattern → toggle expanded
+        // for postit/magicpen → toggle active (and close others)
+        const pattern = body.dataset.pattern;
+        if (pattern === 'sparkline') {
+          el.classList.toggle('expanded');
+        } else {
+          const wasActive = el.classList.contains('active');
+          // close siblings
+          document.querySelectorAll(selector).forEach(o => o.classList.remove('active'));
+          if (!wasActive) el.classList.add('active');
+        }
+      });
+    });
+  }
+  setupClickToggle('.kpi', 'expanded active');
+  setupClickToggle('.week-item', 'expanded active');
+
+  // close postit/magic on outside click
+  document.addEventListener('click', (e) => {
+    if (body.dataset.pattern === 'sparkline') return;
+    if (!e.target.closest('.kpi') && !e.target.closest('.week-item')) {
+      document.querySelectorAll('.kpi.active, .week-item.active')
+        .forEach(el => el.classList.remove('active'));
+    }
+  });
+</script>
+
+</body>
+</html>
