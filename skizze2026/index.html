@@ -244,6 +244,35 @@
     line-height: 1.3;
   }
 
+  /* NORTH STAR (Vision) */
+  .vision {
+    padding: 14px 32px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .vision-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .vision-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+
   /* KPI GRID */
   .kpi-grid {
     display: grid;
@@ -428,7 +457,7 @@
   /* MOBILE */
   @media (max-width: 600px) {
     .stage { padding: 32px 20px 48px; }
-    .dash-header, .quarter, .briefing, .week-list { padding-left: 22px; padding-right: 22px; }
+    .dash-header, .vision, .quarter, .briefing, .week-list { padding-left: 22px; padding-right: 22px; }
     .kpi { padding: 18px 22px; }
     .kpi-value { font-size: 24px; }
     .briefing-text { font-size: 16px; }
@@ -466,6 +495,11 @@
       <div class="dash-header">
         <div class="dash-title">Korb Bakery — your week at a glance</div>
         <div class="dash-meta">Week 17 · Mon morning</div>
+      </div>
+
+      <div class="vision">
+        <span class="vision-label">North Star</span>
+        <span class="vision-text">"If my bakery is on their phone, I'm in their heart."</span>
       </div>
 
       <div class="quarter">
@@ -530,6 +564,11 @@
       <div class="dash-header">
         <div class="dash-title">MKH Architekten — deine Woche auf einen Blick</div>
         <div class="dash-meta">KW 17 · Montag früh</div>
+      </div>
+
+      <div class="vision">
+        <span class="vision-label">North Star</span>
+        <span class="vision-text">Holzhäuser zur Hauptsache machen — Stück für Stück, größer als heute.</span>
       </div>
 
       <div class="quarter">
