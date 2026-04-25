@@ -454,6 +454,121 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* === KPI INTERACTIVITY === */
+  .kpi { cursor: pointer; }
+  .kpi:hover { background: #fdfaf1; }
+  .kpi::after {
+    content: '↘';
+    position: absolute; right: 18px; top: 18px;
+    font-size: 11px; color: var(--ink-mute); opacity: 0.4;
+    transition: transform 0.35s ease, opacity 0.2s;
+  }
+  .kpi:hover::after { opacity: 0.85; }
+  .kpi.expanded::after { transform: rotate(180deg); opacity: 0.85; }
+
+  .kpi-detail {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  }
+  .kpi.expanded .kpi-detail {
+    max-height: 160px; margin-top: 14px;
+  }
+
+  /* BAKERY — SVG SPARKLINE */
+  .sparkline { width: 100%; height: 36px; display: block; }
+  .kpi-detail-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--ink-mute);
+    letter-spacing: 0.04em; line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  /* ARCHITECT — STATUS DOT + AMPEL-BAR */
+  .status-dot {
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    margin-left: 10px; vertical-align: middle;
+    animation: status-pulse 2.4s ease-in-out infinite;
+  }
+  .status-dot.green { background: #4A7A4A; }
+  .status-dot.amber { background: var(--warn); }
+  .status-dot.red   { background: #B85735; }
+  @keyframes status-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.25); opacity: 0.7; }
+  }
+
+  .status-bar-wrap {
+    padding-top: 4px;
+  }
+  .status-bar {
+    position: relative;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg,
+      #DCB5A8 0%, #DCB5A8 33%,
+      #E8CFA0 33%, #E8CFA0 66%,
+      #B5CDB5 66%, #B5CDB5 100%);
+    box-shadow: inset 0 1px 2px rgba(30,26,20,0.08);
+  }
+  .status-needle {
+    position: absolute; top: -4px;
+    width: 2px; height: 18px;
+    background: var(--ink); border-radius: 1px;
+    left: 0;
+    transition: left 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s;
+  }
+  .status-needle::after {
+    content: ''; position: absolute;
+    top: -5px; left: -4px;
+    width: 10px; height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(30,26,20,0.3);
+  }
+  .kpi.expanded .status-needle { left: var(--needle-pos, 50%); }
+
+  .status-zones {
+    display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .status-zones span { flex: 1; text-align: center; }
+  .status-zones span:first-child  { text-align: left; color: #B85735; }
+  .status-zones span:nth-child(2) { color: var(--warn); }
+  .status-zones span:last-child   { text-align: right; color: #4A7A4A; }
+
+  .status-comment {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 13px; color: var(--ink-soft);
+    line-height: 1.4; margin-top: 10px;
+  }
+
+  /* WEEK-ITEM ACTIONS */
+  .week-item { cursor: pointer; flex-wrap: wrap; }
+  .week-item .week-text { flex: 1; min-width: 0; }
+  .week-actions {
+    max-height: 0; overflow: hidden; width: 100%;
+    transition: max-height 0.35s ease, margin-top 0.25s ease;
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .week-item.expanded .week-actions {
+    max-height: 80px; margin-top: 10px;
+  }
+  .action-btn {
+    appearance: none; border: none;
+    background: var(--rule-soft); color: var(--ink-soft);
+    border-radius: 4px; padding: 6px 12px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px; cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .action-btn:hover { background: var(--accent-soft); color: var(--ink); }
+
   /* MOBILE */
   @media (max-width: 600px) {
     .stage { padding: 32px 20px 48px; }
@@ -463,6 +578,7 @@
     .briefing-text { font-size: 16px; }
     .toggle button { padding: 9px 14px; font-size: 13px; }
     .lede { font-size: 16px; }
+    .kpi::after { right: 14px; top: 14px; }
   }
 </style>
 </head>
@@ -512,21 +628,53 @@
           <div class="kpi-label">Sales · last 7 days</div>
           <div class="kpi-value">€18,420</div>
           <div class="kpi-meta"><span class="up">↑ 4%</span> vs week before</div>
+          <div class="kpi-detail">
+            <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+                points="0,22 14,18 28,20 42,15 56,12 70,16 84,10 100,8" />
+              <circle cx="100" cy="8" r="2.5" fill="#B85735"/>
+            </svg>
+            <div class="kpi-detail-hint">8-week trend · live POS data would land here · best Saturday in 3 weeks</div>
+          </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Top seller</div>
           <div class="kpi-value">Sourdough</div>
           <div class="kpi-meta">412 loaves · Brötchen second</div>
+          <div class="kpi-detail">
+            <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+                points="0,18 14,16 28,14 42,12 56,11 70,9 84,8 100,6" />
+              <circle cx="100" cy="6" r="2.5" fill="#B85735"/>
+            </svg>
+            <div class="kpi-detail-hint">Sourdough volume · 8 weeks · steady climb since Q4</div>
+          </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Staff cost ratio</div>
           <div class="kpi-value">31%</div>
           <div class="kpi-meta"><span class="warn">target &lt; 30%</span> · creeping up</div>
+          <div class="kpi-detail">
+            <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#B8893B" stroke-width="1.5"
+                points="0,22 14,21 28,19 42,17 56,15 70,13 84,12 100,10" />
+              <circle cx="100" cy="10" r="2.5" fill="#B8893B"/>
+            </svg>
+            <div class="kpi-detail-hint">Crept up since week 12 · Anna picked up 4h overtime · target line: 30%</div>
+          </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Waste rate</div>
           <div class="kpi-value">6%</div>
           <div class="kpi-meta">Filiale 2: <span class="down">9%</span> · others fine</div>
+          <div class="kpi-detail">
+            <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#B85735" stroke-width="1.5"
+                points="0,22 14,21 28,19 42,17 56,14 70,12 84,11 100,9" />
+              <circle cx="100" cy="9" r="2.5" fill="#B85735"/>
+            </svg>
+            <div class="kpi-detail-hint">Filiale 2 isolated · others stable · croissant returns growing 3 weeks</div>
+          </div>
         </div>
       </div>
 
@@ -542,10 +690,42 @@
 
       <div class="week-list">
         <div class="week-label">What's on your plate this week</div>
-        <div class="week-item"><span class="marker">01</span><span>Talk to Filiale 2 about waste — bring last 4 weeks of numbers</span></div>
-        <div class="week-item"><span class="marker">02</span><span>Decide on extended Saturday hours for Easter week</span></div>
-        <div class="week-item"><span class="marker">03</span><span>Vicent: contract decision (you said end of March)</span></div>
-        <div class="week-item"><span class="marker">04</span><span>Reorder vanilla — supplier said 5-day lead time now</span></div>
+        <div class="week-item">
+          <span class="marker">01</span>
+          <span class="week-text">Talk to Filiale 2 about waste — bring last 4 weeks of numbers</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ Open in HS Soft</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">02</span>
+          <span class="week-text">Decide on extended Saturday hours for Easter week</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ See last year</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">03</span>
+          <span class="week-text">Vicent: contract decision (you said end of March)</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ Open thread</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">04</span>
+          <span class="week-text">Reorder vanilla — supplier said 5-day lead time now</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Mark done</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Snooze</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ Order in HS Soft</button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -577,25 +757,53 @@
       </div>
 
       <div class="kpi-grid">
-        <div class="kpi">
+        <div class="kpi" style="--needle-pos: 85%;">
           <div class="kpi-label">Anfragen · letzte 7 Tage</div>
-          <div class="kpi-value">3</div>
+          <div class="kpi-value">3<span class="status-dot green"></span></div>
           <div class="kpi-meta"><span class="up">↑</span> Schnitt: 2/Woche</div>
+          <div class="kpi-detail">
+            <div class="status-bar-wrap">
+              <div class="status-bar"><span class="status-needle"></span></div>
+              <div class="status-zones"><span>‹ kritisch</span><span>im Plan</span><span>über Plan ›</span></div>
+              <div class="status-comment">Empfehlungs-Inbound zieht — bestes Bild seit Februar.</div>
+            </div>
+          </div>
         </div>
-        <div class="kpi">
+        <div class="kpi" style="--needle-pos: 58%;">
           <div class="kpi-label">Pipeline-Wert</div>
-          <div class="kpi-value">€184k</div>
+          <div class="kpi-value">€184k<span class="status-dot amber"></span></div>
           <div class="kpi-meta">4 offene Angebote</div>
+          <div class="kpi-detail">
+            <div class="status-bar-wrap">
+              <div class="status-bar"><span class="status-needle"></span></div>
+              <div class="status-zones"><span>‹ kritisch</span><span>im Plan</span><span>über Plan ›</span></div>
+              <div class="status-comment">4 offene Angebote · Familie Sauer hängt seit 11 Tagen.</div>
+            </div>
+          </div>
         </div>
-        <div class="kpi">
+        <div class="kpi" style="--needle-pos: 38%;">
           <div class="kpi-label">Auslastung Team</div>
-          <div class="kpi-value">87%</div>
+          <div class="kpi-value">87%<span class="status-dot amber"></span></div>
           <div class="kpi-meta"><span class="warn">Engpass Visualisierung</span></div>
+          <div class="kpi-detail">
+            <div class="status-bar-wrap">
+              <div class="status-bar"><span class="status-needle"></span></div>
+              <div class="status-zones"><span>‹ kritisch</span><span>im Plan</span><span>über Plan ›</span></div>
+              <div class="status-comment">Markus auf 47 h · Visualisierung wird zum Engpass.</div>
+            </div>
+          </div>
         </div>
-        <div class="kpi">
+        <div class="kpi" style="--needle-pos: 12%;">
           <div class="kpi-label">Letzter LinkedIn-Beitrag</div>
-          <div class="kpi-value">vor 23 T.</div>
+          <div class="kpi-value">vor 23 T.<span class="status-dot red"></span></div>
           <div class="kpi-meta"><span class="down">Sichtbarkeit fällt</span></div>
+          <div class="kpi-detail">
+            <div class="status-bar-wrap">
+              <div class="status-bar"><span class="status-needle"></span></div>
+              <div class="status-zones"><span>‹ kritisch</span><span>im Plan</span><span>über Plan ›</span></div>
+              <div class="status-comment">Sichtbarkeit fällt seit drei Wochen · Entwurf liegt fertig.</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -611,10 +819,42 @@
 
       <div class="week-list">
         <div class="week-label">Was diese Woche auf dem Tisch liegt</div>
-        <div class="week-item"><span class="marker">01</span><span>Follow-up Familie Sauer — Angebot €68k offen</span></div>
-        <div class="week-item"><span class="marker">02</span><span>Strategiemeeting Donnerstag — Pipeline-Review zu dritt</span></div>
-        <div class="week-item"><span class="marker">03</span><span>LinkedIn-Beitrag freigeben (Entwurf liegt seit Mittwoch)</span></div>
-        <div class="week-item"><span class="marker">04</span><span>Markus entlasten — Visualisierungs-Engpass besprechen</span></div>
+        <div class="week-item">
+          <span class="marker">01</span>
+          <span class="week-text">Follow-up Familie Sauer — Angebot €68k offen</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Erledigt</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Verschieben</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ In Outlook öffnen</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">02</span>
+          <span class="week-text">Strategiemeeting Donnerstag — Pipeline-Review zu dritt</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Erledigt</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Verschieben</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ In Teams öffnen</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">03</span>
+          <span class="week-text">LinkedIn-Beitrag freigeben (Entwurf liegt seit Mittwoch)</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Erledigt</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Verschieben</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ Entwurf öffnen</button>
+          </div>
+        </div>
+        <div class="week-item">
+          <span class="marker">04</span>
+          <span class="week-text">Markus entlasten — Visualisierungs-Engpass besprechen</span>
+          <div class="week-actions">
+            <button class="action-btn" onclick="event.stopPropagation()">✓ Erledigt</button>
+            <button class="action-btn" onclick="event.stopPropagation()">⏰ Verschieben</button>
+            <button class="action-btn" onclick="event.stopPropagation()">↗ In Teams öffnen</button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -690,6 +930,14 @@
     const activeBtn = document.querySelector(`.toggle button.active`);
     pill.style.left = activeBtn.offsetLeft + 'px';
     pill.style.width = activeBtn.offsetWidth + 'px';
+  });
+
+  // KPI + Week-Item click toggle (delegated)
+  document.querySelectorAll('.kpi, .week-item').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('.action-btn')) return;
+      el.classList.toggle('expanded');
+    });
   });
 </script>
 </body>
