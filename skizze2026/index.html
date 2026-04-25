@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>A small idea — for Ben & Eric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F4EFE3;
+    --paper: #FAF6EC;
+    --ink: #1E1A14;
+    --ink-soft: #4A4339;
+    --ink-mute: #847C6E;
+    --rule: #D9D0B9;
+    --rule-soft: #E8E0CD;
+    --bakery: #B85735;
+    --bakery-soft: #E8C9B8;
+    --architect: #2A4A3E;
+    --architect-soft: #B8CFC4;
+    --warn: #B8893B;
+    --accent: var(--bakery);
+    --accent-soft: var(--bakery-soft);
+  }
+
+  body[data-view="architect"] {
+    --accent: var(--architect);
+    --accent-soft: var(--architect-soft);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(184, 87, 53, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(42, 74, 62, 0.04) 0%, transparent 40%);
+    transition: background 0.6s ease;
+  }
+
+  .stage {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .preamble {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .preamble::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--ink-mute);
+  }
+
+  .title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144;
+  }
+
+  .title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+    transition: color 0.6s ease;
+  }
+
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 580px;
+    font-variation-settings: "opsz" 32;
+  }
+
+  /* TOGGLE */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .toggle-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .toggle {
+    display: inline-flex;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px;
+    position: relative;
+  }
+
+  .toggle button {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border-radius: 999px;
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toggle button.active { color: white; }
+  .toggle button .icon { font-size: 16px; }
+
+  .toggle-pill {
+    position: absolute;
+    top: 4px;
+    height: calc(100% - 8px);
+    background: var(--accent);
+    border-radius: 999px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s ease;
+    z-index: 1;
+  }
+
+  /* DASHBOARD CARD */
+  .dashboard {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(30, 26, 20, 0.04),
+      0 8px 32px -8px rgba(30, 26, 20, 0.08);
+    position: relative;
+  }
+
+  .dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: background 0.6s ease;
+  }
+
+  /* DASH HEADER */
+  .dash-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .dash-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .dash-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+
+  /* QUARTER STRIP */
+  .quarter {
+    padding: 20px 32px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.6s ease;
+  }
+
+  .quarter-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    transition: color 0.6s ease;
+    flex-shrink: 0;
+  }
+
+  .quarter-text {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule-soft);
+  }
+
+  .kpi {
+    background: var(--paper);
+    padding: 22px 24px;
+  }
+
+  .kpi-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+
+  .kpi-value {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+    font-variation-settings: "opsz" 60;
+  }
+
+  .kpi-meta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  .kpi-meta .up { color: #4A7A4A; }
+  .kpi-meta .down { color: #B85735; }
+  .kpi-meta .warn { color: var(--warn); font-weight: 500; }
+
+  /* AI BRIEFING */
+  .briefing {
+    padding: 32px;
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    background:
+      linear-gradient(180deg, var(--paper) 0%, rgba(244, 239, 227, 0.4) 100%);
+    position: relative;
+  }
+
+  .briefing-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .briefing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: background 0.6s ease;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  .briefing-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    transition: color 0.6s ease;
+  }
+
+  .briefing-text {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-variation-settings: "opsz" 24;
+  }
+
+  .briefing-text strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* THIS WEEK LIST */
+  .week-list {
+    padding: 24px 32px 28px;
+  }
+
+  .week-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+  }
+
+  .week-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  .week-item:last-child { border-bottom: none; }
+
+  .week-item .marker {
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    margin-top: 4px;
+    transition: color 0.6s ease;
+    flex-shrink: 0;
+  }
+
+  /* SIGNATURE */
+  .signature {
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-mute);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .signature .ornament {
+    display: inline-block;
+    margin: 0 12px;
+    color: var(--accent);
+    transition: color 0.6s ease;
+  }
+
+  /* VIEW TRANSITIONS */
+  .view {
+    display: none;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .view.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PAGE LOAD STAGGER */
+  .header > * {
+    opacity: 0;
+    animation: rise 0.7s ease both;
+  }
+  .header > *:nth-child(1) { animation-delay: 0.05s; }
+  .header > *:nth-child(2) { animation-delay: 0.15s; }
+  .header > *:nth-child(3) { animation-delay: 0.25s; }
+  .toggle-row { opacity: 0; animation: rise 0.7s ease 0.35s both; }
+  .dashboard { opacity: 0; animation: rise 0.7s ease 0.45s both; }
+  .signature { opacity: 0; animation: rise 0.7s ease 0.65s both; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .stage { padding: 32px 20px 48px; }
+    .dash-header, .quarter, .briefing, .week-list { padding-left: 22px; padding-right: 22px; }
+    .kpi { padding: 18px 22px; }
+    .kpi-value { font-size: 24px; }
+    .briefing-text { font-size: 16px; }
+    .toggle button { padding: 9px 14px; font-size: 13px; }
+    .lede { font-size: 16px; }
+  }
+</style>
+</head>
+<body data-view="bakery">
+<div class="stage">
+
+  <header class="header">
+    <div class="preamble" id="preamble">A friend's sketch · Daniel Arnold</div>
+    <h1 class="title" id="title">A small idea —<br><em id="title-em">for your bakery</em></h1>
+    <p class="lede" id="lede">Everything you already track, pulled into one place. A weekly read-out, written by an AI. Not a product. Not a pitch. Just a sketch of what's possible.</p>
+  </header>
+
+  <div class="toggle-row">
+    <span class="toggle-label" id="toggle-label">Switch view</span>
+    <div class="toggle" role="tablist">
+      <span class="toggle-pill" id="pill"></span>
+      <button class="active" data-view="bakery" id="btn-bakery">
+        <span class="icon">🥐</span><span>Bakery</span>
+      </button>
+      <button data-view="architect" id="btn-architect">
+        <span class="icon">🏛</span><span>Architekturbüro</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- BAKERY VIEW (English – for Ben) -->
+  <div class="view active" id="view-bakery">
+    <div class="dashboard">
+
+      <div class="dash-header">
+        <div class="dash-title">Korb Bakery — your week at a glance</div>
+        <div class="dash-meta">Week 17 · Mon morning</div>
+      </div>
+
+      <div class="quarter">
+        <span class="quarter-label">This quarter</span>
+        <span class="quarter-text">Lift weekend revenue at Filiale 2 by 15%</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Sales · last 7 days</div>
+          <div class="kpi-value">€18,420</div>
+          <div class="kpi-meta"><span class="up">↑ 4%</span> vs week before</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Top seller</div>
+          <div class="kpi-value">Sourdough</div>
+          <div class="kpi-meta">412 loaves · Brötchen second</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Staff cost ratio</div>
+          <div class="kpi-value">31%</div>
+          <div class="kpi-meta"><span class="warn">target &lt; 30%</span> · creeping up</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Waste rate</div>
+          <div class="kpi-value">6%</div>
+          <div class="kpi-meta">Filiale 2: <span class="down">9%</span> · others fine</div>
+        </div>
+      </div>
+
+      <div class="briefing">
+        <div class="briefing-header">
+          <span class="briefing-dot"></span>
+          <span class="briefing-label">Monday briefing · written for you</span>
+        </div>
+        <p class="briefing-text">
+          Good morning, Ben. Last week was solid — sourdough is still leading and Saturday was your best day in three weeks. <strong>Filiale 2 needs a look:</strong> waste climbed to 9% and croissant returns have grown three weeks in a row. Anna picked up four overtime hours — the staff cost ratio is now at 31%. <strong>Friday looks warm</strong> — last year you sold 38% more iced coffee on a day like that.
+        </p>
+      </div>
+
+      <div class="week-list">
+        <div class="week-label">What's on your plate this week</div>
+        <div class="week-item"><span class="marker">01</span><span>Talk to Filiale 2 about waste — bring last 4 weeks of numbers</span></div>
+        <div class="week-item"><span class="marker">02</span><span>Decide on extended Saturday hours for Easter week</span></div>
+        <div class="week-item"><span class="marker">03</span><span>Vicent: contract decision (you said end of March)</span></div>
+        <div class="week-item"><span class="marker">04</span><span>Reorder vanilla — supplier said 5-day lead time now</span></div>
+      </div>
+
+    </div>
+
+    <div class="signature">
+      Just an idea. Numbers are made up.
+      <span class="ornament">✦</span>
+      Talk when you can. — Daniel
+    </div>
+  </div>
+
+  <!-- ARCHITECT VIEW (German – für Eric) -->
+  <div class="view" id="view-architect">
+    <div class="dashboard">
+
+      <div class="dash-header">
+        <div class="dash-title">MKH Architekten — deine Woche auf einen Blick</div>
+        <div class="dash-meta">KW 17 · Montag früh</div>
+      </div>
+
+      <div class="quarter">
+        <span class="quarter-label">Dieses Quartal</span>
+        <span class="quarter-text">6 qualifizierte Anfragen für Wohnungsbau gewinnen</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Anfragen · letzte 7 Tage</div>
+          <div class="kpi-value">3</div>
+          <div class="kpi-meta"><span class="up">↑</span> Schnitt: 2/Woche</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Pipeline-Wert</div>
+          <div class="kpi-value">€184k</div>
+          <div class="kpi-meta">4 offene Angebote</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Auslastung Team</div>
+          <div class="kpi-value">87%</div>
+          <div class="kpi-meta"><span class="warn">Engpass Visualisierung</span></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Letzter LinkedIn-Beitrag</div>
+          <div class="kpi-value">vor 23 T.</div>
+          <div class="kpi-meta"><span class="down">Sichtbarkeit fällt</span></div>
+        </div>
+      </div>
+
+      <div class="briefing">
+        <div class="briefing-header">
+          <span class="briefing-dot"></span>
+          <span class="briefing-label">Montagsbericht · für dich geschrieben</span>
+        </div>
+        <p class="briefing-text">
+          Guten Morgen, Eric. Drei neue Anfragen letzte Woche — alle aus Empfehlungen, das ist das stärkste Bild seit Februar. <strong>Familie Sauer hängt:</strong> seit 11 Tagen kein Follow-up, das offene Angebot ist €68k. Markus hat 47 Stunden gearbeitet, Auslastung im Team über Plan. <strong>Marketing-Aktivität ist seit drei Wochen rückläufig</strong> — der LinkedIn-Beitrag im Entwurf liegt seit Mittwoch fertig.
+        </p>
+      </div>
+
+      <div class="week-list">
+        <div class="week-label">Was diese Woche auf dem Tisch liegt</div>
+        <div class="week-item"><span class="marker">01</span><span>Follow-up Familie Sauer — Angebot €68k offen</span></div>
+        <div class="week-item"><span class="marker">02</span><span>Strategiemeeting Donnerstag — Pipeline-Review zu dritt</span></div>
+        <div class="week-item"><span class="marker">03</span><span>LinkedIn-Beitrag freigeben (Entwurf liegt seit Mittwoch)</span></div>
+        <div class="week-item"><span class="marker">04</span><span>Markus entlasten — Visualisierungs-Engpass besprechen</span></div>
+      </div>
+
+    </div>
+
+    <div class="signature">
+      Nur eine Skizze. Zahlen sind erfunden.
+      <span class="ornament">✦</span>
+      Wenn dich's interessiert, reden wir. — Daniel
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.toggle button');
+  const pill = document.getElementById('pill');
+  const body = document.body;
+  const views = {
+    bakery: document.getElementById('view-bakery'),
+    architect: document.getElementById('view-architect')
+  };
+
+  const copy = {
+    bakery: {
+      preamble: "A friend's sketch · Daniel Arnold",
+      titleMain: "A small idea —",
+      titleEm: "for your bakery",
+      lede: "Everything you already track, pulled into one place. A weekly read-out, written by an AI. Not a product. Not a pitch. Just a sketch of what's possible.",
+      toggleLabel: "Switch view"
+    },
+    architect: {
+      preamble: "Eine Skizze unter Freunden · Daniel Arnold",
+      titleMain: "Eine kleine Idee —",
+      titleEm: "für euer Büro",
+      lede: "Alles, was ihr ohnehin schon erfasst, an einem Ort. Eine wöchentliche Zusammenfassung, von einer KI geschrieben. Kein Produkt, kein Angebot. Nur eine Skizze, was möglich wäre.",
+      toggleLabel: "Ansicht wechseln"
+    }
+  };
+
+  function setView(view) {
+    body.dataset.view = view;
+    Object.values(views).forEach(v => v.classList.remove('active'));
+    views[view].classList.add('active');
+
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.view === view));
+
+    const activeBtn = document.querySelector(`.toggle button.active`);
+    pill.style.left = activeBtn.offsetLeft + 'px';
+    pill.style.width = activeBtn.offsetWidth + 'px';
+
+    document.getElementById('preamble').textContent = copy[view].preamble;
+    document.getElementById('title').innerHTML = copy[view].titleMain + '<br><em id="title-em">' + copy[view].titleEm + '</em>';
+    document.getElementById('lede').textContent = copy[view].lede;
+    document.getElementById('toggle-label').textContent = copy[view].toggleLabel;
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+
+  // Initial pill position + URL param check
+  window.addEventListener('load', () => {
+    // Check URL param: ?view=architect or ?view=bakery
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedView = urlParams.get('view');
+    if (requestedView === 'architect' || requestedView === 'bakery') {
+      setView(requestedView);
+    }
+    const activeBtn = document.querySelector(`.toggle button.active`);
+    pill.style.left = activeBtn.offsetLeft + 'px';
+    pill.style.width = activeBtn.offsetWidth + 'px';
+  });
+
+  window.addEventListener('resize', () => {
+    const activeBtn = document.querySelector(`.toggle button.active`);
+    pill.style.left = activeBtn.offsetLeft + 'px';
+    pill.style.width = activeBtn.offsetWidth + 'px';
+  });
+</script>
+</body>
+</html>
