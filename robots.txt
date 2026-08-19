@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /progress/
 Disallow: /css/
 Disallow: /js/
 Disallow: /assets/fonts/
