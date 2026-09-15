@@ -2,8 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /progress/
 Disallow: /angebote/
-Disallow: /css/
-Disallow: /js/
-Disallow: /assets/fonts/
 
 Sitemap: https://arnoldcoaching.de/sitemap.xml
