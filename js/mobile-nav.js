@@ -11,10 +11,12 @@
 
   if (!toggle || !menu || !overlay) return;
 
+  var english = document.documentElement.lang === 'en';
+
   function openMenu() {
     toggle.classList.add('nav__hamburger--open');
     toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Menü schließen');
+    toggle.setAttribute('aria-label', english ? 'Close menu' : 'Menü schließen');
     menu.classList.add('nav__menu--open');
     overlay.classList.add('nav__overlay--visible');
     document.body.style.overflow = 'hidden';
@@ -23,7 +25,7 @@
   function closeMenu() {
     toggle.classList.remove('nav__hamburger--open');
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Menü öffnen');
+    toggle.setAttribute('aria-label', english ? 'Open menu' : 'Menü öffnen');
     menu.classList.remove('nav__menu--open');
     overlay.classList.remove('nav__overlay--visible');
     document.body.style.overflow = '';

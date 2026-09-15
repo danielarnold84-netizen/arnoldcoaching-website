@@ -108,6 +108,15 @@
 .offer-faq summary { padding: var(--space-md) 2rem var(--space-md) 0; cursor: pointer; font-weight: var(--fw-semibold); }
 .offer-faq details p { padding-bottom: var(--space-md); }
 
+.offer-format { margin-top: var(--space-md); max-width: 65ch; }
+
+.offer-section p,
+.offer-hero__intro,
+.offers .offer-card p,
+html[lang="en"] .hero__subtitle {
+  color: var(--color-text-primary);
+}
+
 @media (min-width: 640px) {
   .offers__grid, .offer-grid { grid-template-columns: repeat(2, 1fr); }
 }
