@@ -10,6 +10,7 @@
 
   --color-accent-green: #464528;     /* Dunkelgrün — Sekundär-Akzent */
   --color-accent-red: #cc0000;       /* Kirschrot — CTA sparsam */
+  --color-accent: var(--color-primary); /* defensive alias: bare --color-accent war undefiniert → Fake-Gold-Fallback renderte auf EN-Draft (Audit 06.06.) */
 
   --color-bg-white: #ffffff;
   --color-bg-warm: #f2f1ef;          /* Hellgrau / Off-White */
