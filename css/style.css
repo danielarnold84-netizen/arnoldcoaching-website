@@ -682,7 +682,7 @@ section > .container > h2 {
 .stepper__step {
   position: relative;
   padding: var(--space-lg);
-  background-color: var(--color-bg-warm);
+  background-color: var(--color-bg-white); /* Karte = Elevation, weiss auf warmer Seitenflaeche (Audit 06.06.) */
   border-radius: var(--radius-md);
   transition: all var(--transition-base);
 }
@@ -737,7 +737,7 @@ section > .container > h2 {
 }
 
 .testimonial {
-  background-color: var(--color-bg-warm);
+  background-color: var(--color-bg-white); /* Karte = Elevation, weiss auf warmer Seitenflaeche (Audit 06.06.) */
   border-radius: var(--radius-md);
   padding: var(--space-lg);
   position: relative;
