@@ -53,7 +53,7 @@ body {
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
   color: var(--color-text-primary);
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-warm); /* Brand-Regel: Seiten-Fläche = Warmgrau, NIE reines #fff (Audit 06.06.). Karten/Buttons bleiben weiß = Elevation. */
 }
 
 /* Headings */

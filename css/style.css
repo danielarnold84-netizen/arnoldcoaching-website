@@ -18,6 +18,7 @@
 
   --color-accent-green: #464528;
   --color-accent-red: #cc0000;
+  --color-accent: var(--color-primary); /* defensive alias — siehe variables.css */
 
   --color-bg-white: #ffffff;
   --color-bg-warm: #f2f1ef;
@@ -198,7 +199,7 @@ body {
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
   color: var(--color-text-primary);
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-warm); /* Brand-Regel: Seiten-Fläche = Warmgrau, NIE reines #fff (Audit 06.06.). Karten/Buttons bleiben weiß = Elevation. */
 }
 
 h1, h2, h3, h4, h5, h6 {
