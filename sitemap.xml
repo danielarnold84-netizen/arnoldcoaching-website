@@ -2,35 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://arnoldcoaching.de/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://arnoldcoaching.de/team-coaching/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://arnoldcoaching.de/einzelcoaching/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://arnoldcoaching.de/en/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arnoldcoaching.de/en/1-to-1-coaching/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://arnoldcoaching.de/en/team-coaching/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://arnoldcoaching.de/impressum.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://arnoldcoaching.de/datenschutz.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
-  <url><loc>https://arnoldcoaching.de/en/</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://arnoldcoaching.de/en/1-to-1-coaching/</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://arnoldcoaching.de/en/team-coaching/</loc><lastmod>2026-09-15</lastmod></url>
 </urlset>

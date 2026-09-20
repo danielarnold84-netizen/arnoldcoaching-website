@@ -1,3 +1,11 @@
 .DS_Store
 *.md
 *.jpeg
+
+# Ausnahme: Die Positionierungs-Regeln muessen im Repo liegen, damit ein
+# generierter Branch sie liest. Commit 2d0eb34 (15.09.2026) hat das
+# Sprachschul-Vokabular zurueckgeschrieben, weil diese Regeln nur lokal standen.
+!CLAUDE.md
+
+# Braucht workflow-Scope im Token, daher vorerst nur lokal:
+.github/
